@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/dashboard::header"></head>
+
+<body>
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <span th:replace="fragments/asider::sidebar"></span>
+    <div class="layout-page">
+      <span th:replace="fragments/header::header"></span>
+      <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <div class="row">
+            <div class="col-lg-12 mb-4 order-0">
+              <div class="card">
+                <div class="d-flex align-items-end row">
+                  <div class="col-sm-12">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Lista De Estudiantes 🎉</h5>
+                      <div>
+                        <!-- Enlace para agregar un nuevo estudiante -->
+                        <a th:href="@{/estudiante/nuevo}" class="btn btn-primary">Nuevo</a>
+                      </div>
+                      <div class="table-responsive text-nowrap">
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Primer Apellido</th>
+                            <th>Segundo Apellido</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Creado En</th>
+                            <th>Actualizado En</th>
+                            <th>Acciones</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <!-- Iteración sobre la lista de estudiantes -->
+                          <tr th:each="estudiante : ${listaEstudiantes}">
+                            <td th:text="${estudiante.id}"></td>
+                            <td th:text="${estudiante.nombre}"></td>
+                            <td th:text="${estudiante.primerApellido}"></td>
+                            <td th:text="${estudiante.segundoApellido}"></td>
+                            <td th:text="${estudiante.correo}"></td>
+                            <td th:text="${estudiante.telefono}"></td>
+                            <td th:text="${#dates.format(estudiante.creadoEn, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${#dates.format(estudiante.actualizadoEn, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td>
+                              <!-- Enlace para editar el estudiante -->
+                              <a th:href="@{/estudiante/actualizar/{id}(id=${estudiante.id})}" class="btn btn-warning">Editar</a>
+                              <!-- Enlace para eliminar el estudiante -->
+                              <a th:href="@{/estudiante/delete/{id}(id=${estudiante.id})}" class="btn btn-danger">Eliminar</a>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span th:replace="fragments/footer::footer"></span>
+        <div class="content-backdrop fade"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
